@@ -38,7 +38,7 @@ const loginHandler = async (req, res) => {
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "lax",
         });
 
@@ -119,7 +119,7 @@ const logoutHandler = async (req, res) => {
     try {
         res.clearCookie("refreshToken", {
             httpOnly: true,
-            secure: false,
+            secure: true,
             sameSite: "lax"
         });
         await Token.deleteOne({ token });
