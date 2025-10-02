@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cookieparser());
 app.use(cors({
-    origin: process.env.CORS_URL,
+    origin:"https://prime-notes.netlify.app",
     credentials: true
 }));
 app.use(express.json());
