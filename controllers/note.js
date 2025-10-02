@@ -4,7 +4,7 @@ const Note = require("../models/note");
 const getAllNotesHandler = async (req, res) => {
     try {
 
-        const notes = await Note.find().sort();
+        const notes = await Note.find().populate("userId", "username").sort();
         return res.status(200).json({ message: "All notes fetched successfully.", notes });
 
     } catch (error) {
@@ -56,7 +56,7 @@ const updateNoteHandler = async (req, res) => {
     try {
 
         const note = await Note.findOneAndUpdate({ _id: id }, { title, description });
-        console.log(note);
+        // console.log(note);
 
         return res.status(201).json({ message: "Note updated successfully.", note });
 

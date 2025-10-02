@@ -10,6 +10,11 @@ router.post("/", authMiddleware, createNoteHandler);
 router.get("/:id", authMiddleware, getNoteByIdHandler);
 router.patch("/:id", authMiddleware, updateNoteHandler);
 router.delete("/:id", authMiddleware, deleteNoteHandler);
+// router.get("/", getAllNotesHandler);
+// router.post("/", createNoteHandler);
+// router.get("/:id", getNoteByIdHandler);
+// router.patch("/:id", updateNoteHandler);
+// router.delete("/:id", deleteNoteHandler);
 
 
 module.exports = { notesRouter: router };

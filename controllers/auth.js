@@ -28,13 +28,13 @@ const loginHandler = async (req, res) => {
             id: storedUser._id,
             email: storedUser.email,
             username: storedUser.username
-        }, accessTokenSecretKey,{expiresIn:"1m"});
+        }, accessTokenSecretKey, { expiresIn: "15m" });
 
         const refreshToken = jwt.sign({
             id: storedUser._id,
             email: storedUser.email,
             username: storedUser.username
-        }, refreshTokenSecretKey,{expiresIn:"2m"});
+        }, refreshTokenSecretKey, { expiresIn: "30m" });
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
@@ -44,7 +44,7 @@ const loginHandler = async (req, res) => {
 
         await Token.create({ token: refreshToken });
 
-        return res.status(201).json({ message: "User login successfully.", token: accessToken, username: storedUser.username })
+        return res.status(201).json({ message: "User login successfully.", token: accessToken, userId: storedUser._id })
 
 
     } catch (error) {
@@ -54,7 +54,7 @@ const loginHandler = async (req, res) => {
 }
 
 
-const signupHandler = async (req, res) => {
+const signupHandler = async (req, res) => {  
     const { username, email, password } = req.body;
     if (!email || !password || !username) {
         return res.status(400).json({ message: "All feilds are required." });
@@ -100,9 +100,9 @@ const refreshTokenHandler = async (req, res) => {
             id: verifiedToken.id,
             email: verifiedToken.email,
             username: verifiedToken.username
-        }, accessTokenSecretKey,{expiresIn:"1m"});
+        }, accessTokenSecretKey, { expiresIn: "15m" });
 
-        return res.status(200).json({ message: "Token refreshed successfully.", token: accessToken, username: verifiedToken.username });
+        return res.status(200).json({ message: "Token refreshed successfully.", token: accessToken, userId: verifiedToken.id });
 
     } catch (error) {
         console.log("refresh token handler error", error);
