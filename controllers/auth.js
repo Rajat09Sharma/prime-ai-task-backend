@@ -39,8 +39,8 @@ const loginHandler = async (req, res) => {
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
             secure: true,
-            sameSite: "lax",
-            // path: "/",
+            sameSite: "None",
+            path: "/",
         });
 
         await Token.create({ token: refreshToken });
@@ -124,9 +124,9 @@ const logoutHandler = async (req, res) => {
     try {
         res.clearCookie("refreshToken", {
             httpOnly: true,
-            secure: true,
-            sameSite: "lax",
-            // path: "/",
+            secure: true,        
+            sameSite: "None",    
+            path: "/",
         });
         await Token.deleteOne({ token });
         return res.status(200).json({ message: "User logout successfully." })

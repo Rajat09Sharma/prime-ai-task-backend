@@ -2,7 +2,7 @@ const Note = require("../models/note");
 
 
 const getAllNotesHandler = async (req, res) => {
-    console.log(req.cookies);
+    // console.log(req.cookies);
     
     try {
 
