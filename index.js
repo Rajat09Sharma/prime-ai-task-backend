@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration
 app.use(cors({
-    origin: process.env.CORS_URL, // should be like 'https://sunny-kringle-6e2793.netlify.app'
+    origin: 'https://sunny-kringle-6e2793.netlify.app',
     credentials: true,           
     methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
     allowedHeaders: ["Content-Type","Authorization"]
