@@ -40,7 +40,7 @@ const loginHandler = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "None",
-            path: "/",
+            // path: "/",
         });
 
         await Token.create({ token: refreshToken });
@@ -122,7 +122,7 @@ const logoutHandler = async (req, res) => {
             httpOnly: true,
             secure: true,
             sameSite: "None",
-            path: "/",
+            // path: "/",
         });
         await Token.deleteOne({ token });
         return res.status(200).json({ message: "User logout successfully." })
