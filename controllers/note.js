@@ -2,6 +2,8 @@ const Note = require("../models/note");
 
 
 const getAllNotesHandler = async (req, res) => {
+    console.log(req.cookies);
+    
     try {
 
         const notes = await Note.find().populate("userId", "username").sort();
