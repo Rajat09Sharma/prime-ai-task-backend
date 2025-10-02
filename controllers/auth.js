@@ -84,6 +84,8 @@ const signupHandler = async (req, res) => {
 
 const refreshTokenHandler = async (req, res) => {
     const token = req.cookies?.refreshToken;
+    console.log(req.cookies);
+
     if (!token) {
         return res.status(401).json({ message: "No token provided." });
     }
@@ -114,6 +116,8 @@ const refreshTokenHandler = async (req, res) => {
 
 const logoutHandler = async (req, res) => {
     const token = req.cookies?.refreshToken;
+    console.log(req.cookies);
+
     if (!token) {
         return res.status(401).json({ message: "No token provided." });
     }
