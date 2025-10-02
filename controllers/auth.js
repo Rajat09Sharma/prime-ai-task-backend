@@ -39,7 +39,8 @@ const loginHandler = async (req, res) => {
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
             secure: true,
-            sameSite: "lax",
+            sameSite: "None",
+            path: "/",
         });
 
         await Token.create({ token: refreshToken });
@@ -54,7 +55,7 @@ const loginHandler = async (req, res) => {
 }
 
 
-const signupHandler = async (req, res) => {  
+const signupHandler = async (req, res) => {
     const { username, email, password } = req.body;
     if (!email || !password || !username) {
         return res.status(400).json({ message: "All feilds are required." });
@@ -120,7 +121,8 @@ const logoutHandler = async (req, res) => {
         res.clearCookie("refreshToken", {
             httpOnly: true,
             secure: true,
-            sameSite: "lax"
+            sameSite: "None",
+            path: "/",
         });
         await Token.deleteOne({ token });
         return res.status(200).json({ message: "User logout successfully." })
