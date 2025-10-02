@@ -1,37 +1,35 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const cookieparser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const { authRouter } = require("./routes/auth");
 const { notesRouter } = require("./routes/note");
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cookieparser());
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", process.env.CORS_URL);
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
-    next();
-});
-app.use(cors({
-    origin: process.env.CORS_URL,
-    credentials: true
-}));
+// Middlewares
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// CORS configuration
+app.use(cors({
+    origin: process.env.CORS_URL, // should be like 'https://sunny-kringle-6e2793.netlify.app'
+    credentials: true,           
+    methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
+    allowedHeaders: ["Content-Type","Authorization"]
+}));
+
+// Connect to DB
 connectDB();
 
-
+// Routes
 app.use("/auth", authRouter);
 app.use("/note", notesRouter);
 
-
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server stared on PORT:${PORT}.`);
-})
+    console.log(`Server started on PORT: ${PORT}.`);
+});
